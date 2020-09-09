@@ -106,24 +106,20 @@ oc deploy cakephp-mysql-example --latest
                     }
                     if ($hasDB) {
                         try {
-                          $connection->execute('create table view_counter (c integer)');
+                          $connection->execute('create table redhat (name varchar(20))');
                         } catch (Exception $e) {
                         	$tableExisted=1;
                         }
                         try {
-                            if ($tableExisted==0) {
-                            	$connection->execute('insert into view_counter values(1)');
-                            } else {
-                                $connection->execute('update view_counter set c=c+1');
-                            }
                             $result=$connection->execute('select * from redhat')->fetch('assoc');;
+							phpinfo();
                         } catch (Exception $e) {
                             $hasDB=0;
                         }
                     }
                 ?>
                 <?php if ($hasDB==1) : ?>
-                   <span class="code" id="count-value"><?php print_r($result['c']); ?></span>
+                   <span class="code" id="count-value"><?php print_r($result['name']); ?></span>
                    </p>
                 <?php else : ?>
                    <span class="code" id="count-value">No database configured</span>
