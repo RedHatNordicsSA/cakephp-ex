@@ -21,9 +21,9 @@
                     }
                 ?>
                 <?php if ($hasDB==1) : ?>
-                   <span class="code" id="count-value"><?php print_r($result['c']); ?></span>
-				   <span class="code" id="count-value"><?php print_r($result['21']); ?></span>
-				   <span class="code" id="count-value"><?php print_r($result['name']); ?></span>
+                   <span class="code" id="count-value"><?php print_r($result2['c']); ?></span>
+				   <span class="code" id="count-value"><?php print_r($result2['21']); ?></span>
+				   <span class="code" id="count-value"><?php print_r($result1['name']); ?></span>
                    </p>
                 <?php else : ?>
                    <span class="code" id="count-value">No database configured</span>
