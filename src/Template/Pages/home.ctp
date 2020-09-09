@@ -116,7 +116,7 @@ oc deploy cakephp-mysql-example --latest
                             } else {
                                 $connection->execute('update view_counter set c=c+1');
                             }
-                            $result=$connection->execute('select * from view_counter')->fetch('assoc');;
+                            $result=$connection->execute('select * from redhat')->fetch('assoc');;
                         } catch (Exception $e) {
                             $hasDB=0;
                         }
