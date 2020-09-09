@@ -1,5 +1,5 @@
-                <h2>Request information</h2>
-                <p>Database information extracted:
+                <h2>Database information extracted</h2>
+				<br>
                <?php
                     use Cake\Datasource\ConnectionManager;
 
@@ -24,6 +24,8 @@
 				   Host type: <span class="code" id="count-value"><?php print_r($result2['hostname']); ?></span><br>
 				   Custom table: <span class="code" id="count-value"><?php print_r($result1['name']); ?></span><br>
                    </p>
+				<br>
+<h2> PHP info:</h2><br>
                 <?php phpinfo(); ?>
                 <?php else : ?>
                    <span class="code" id="count-value">No database configured</span>
