@@ -12,7 +12,8 @@
                     }
                     if ($hasDB) {
                         try {
-                            $result=$connection->execute('select * from view_counter')->fetch('assoc');;
+							$result1=$connection->execute('select * from redhat')->fetch('assoc');;
+                            $result2=$connection->execute('select * from view_counter')->fetch('assoc');;
 							phpinfo();
                         } catch (Exception $e) {
                             $hasDB=0;
@@ -20,7 +21,9 @@
                     }
                 ?>
                 <?php if ($hasDB==1) : ?>
-                   <span class="code" id="count-value"><?php print_r($result['name']); ?></span>
+                   <span class="code" id="count-value"><?php print_r($result['c']); ?></span>
+				   <span class="code" id="count-value"><?php print_r($result['21']); ?></span>
+				   <span class="code" id="count-value"><?php print_r($result['name']); ?></span>
                    </p>
                 <?php else : ?>
                    <span class="code" id="count-value">No database configured</span>
