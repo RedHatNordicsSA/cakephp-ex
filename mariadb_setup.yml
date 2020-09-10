@@ -1,0 +1,85 @@
+---
+- name: MariaDB setup
+  hosts: localhost
+  gather_facts: true
+  become: true
+  vars:
+    mysql_root_password: "redhat"
+    mysql_cakephp_password: "svgThdUJnPDhx7jI"
+
+  tasks:
+
+    - name: add cakephp user
+      user:
+        name: cakephp
+        uid: 1040
+        group: wheel
+
+    - name: install mariadb and required software
+      yum:
+        name:
+          - mariadb-server
+          - python3-PyMySQL
+          - git
+        state: latest
+
+    - name: fetch mysql configuration
+      git:
+        repo: https://github.com/johanodell/mysql-conf.git
+        dest: /tmp/mariadb/
+
+
+    - name: create config files for root
+      copy:
+        src: /tmp/mariadb/root.my.cnf
+        dest: "/root/.my.cnf"
+
+    - name: create config files for cakephp
+      copy:
+        src: /tmp/mariadb/cakephp.my.cnf
+        dest: "/home/cakephp/.my.cnf"
+
+    - name: start mariadb
+      service:
+        name: mariadb
+        enabled: true
+        state: started
+
+    - name: mysql_root_password
+      mysql_user:
+        login_user: root
+        login_password: "{{ mysql_root_password }}"
+        user: root
+        check_implicit_admin: true
+        password: "{{ mysql_root_password }}"
+        host: localhost
+
+    - name: mysql_cakephp_password
+      mysql_user:
+        user: cakephp
+        password: "{{ mysql_cakephp_password }}"
+        priv: "*.*:ALL"
+        state: present
+
+    - name: Create a new database with name 'default'
+      mysql_db:
+        name: default
+        state: present
+
+    - name: fetch mysql configuration
+      git:
+        repo: https://github.com/johanodell/mysql-conf.git
+        dest: /tmp/mariadb/
+
+    - name: create table insert demovalues for vm
+      mysql_db:
+        name: default
+        state: import
+        target: /tmp/mariadb/forum.sql
+
+    - name: Configure firewalld to allow mysql service
+      firewalld:
+        service: mysql
+        permanent: true
+        state: enabled
+        immediate: yes
