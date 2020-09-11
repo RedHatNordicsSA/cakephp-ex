@@ -25,7 +25,7 @@
 
     - name: fetch mysql configuration
       git:
-        repo: https://github.com/johanodell/mysql-conf.git
+        repo: https://github.com/RedHatNordicsSA/cakephp-ex-vm-example.git
         dest: /tmp/mariadb/
 
 
